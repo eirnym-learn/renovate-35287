@@ -1,0 +1,33 @@
+:toc:
+= Renovate update issue with `jsonata` and duplicate dependency
+
+== Issue description
+I have custom tool list in `toml` format in simple `tool = version` format under different sections (e.g. lists might be used to install for different circumstances.
+
+<details>
+<summary>ci-tools.toml</summary>
+
+```toml
+[tools]
+fd-find = "10.0.0"
+[other-tools]
+fd-find = "10.1.0"
+```
+
+FYI: The most recent version of `fd-find` on time of writing this issue is `10.2.0`.
+</details>
+
+For these file, I've created a renovate config which reads it using `jsonata` custom manager.
+
+Dashboard issue exhibits, that renovate has correctly read that dependency, but if the same tool is present in different section, renovate won't run any upgrade process even it should.
+
+== Alternatives
+On earlier stage of development I considered to use different config entries for each section. I rejected this consideration because of `jsonata` match strings duplication.
+
+== Does this happen in any manager?
+
+Curiously, I have such gradle dependency in other project, where I had to force to disable major updates
+
+== Discussion in Renovate
+
+https://github.com/renovatebot/renovate/discussions/35287

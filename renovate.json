@@ -1,0 +1,20 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customManagers": [
+    {
+      "customType": "jsonata",
+      "datasourceTemplate": "crate",
+      "description": "CI Tools (tool=version or tool={version, [datasource]})",
+      "fileFormat": "toml",
+      "fileMatch": [
+        "(^|/)\\.github/ci-tools\\.toml$"
+      ],
+      "matchStrings": [
+        "$reduce(\n    $each($, function($section) {\n        $each($section, function($v, $k) { \n            $type($v)= \"string\" ? {\n                \"depName\": $k,\n                \"currentValue\": $v,\n                \"datasource\": \"crate\"\n            }: undefined\n        })\n   }),\n   $append\n)"
+      ]
+    }
+  ],
+  "extends": [
+    "config:recommended"
+  ]
+}
