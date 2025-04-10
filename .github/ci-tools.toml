@@ -1,5 +1,5 @@
 [tools]
-fd-find = "10.0.0"
+fd-find = "9.0.0"
 
 [tools-other]
 fd-find = "10.1.0"
